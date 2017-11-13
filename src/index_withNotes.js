@@ -1,17 +1,47 @@
 // Your server code here...
 import express from 'express';
 
+// app is instance of server
+// we call .listen --> server starts, runs, waits for request
 const app = express();
 
 import bodyParser from 'body-parser';
+// body parser can parse many different forms, we want JSON, easiest
+// use .use adds middleware to express
 app.use(bodyParser.json());
 
+
+// callback function defined by express - request/response
+// request respresents the http request sent to server ;
+// response represents the http response sent back to client
+
+// use app.something plus path plus function --> tell server what to do in any given circumstance
+// we want to send back data in form JSON
+
 app.get('/', (request, response) => {
+  // return response.send('you tried to get the route path');
   return response.json({message: 'Hello World'});
 });
 
+/*
+app.get('/', (request, response) => {
+  return response.json({hello: 'world'});
+});
+
+app.post('/', (request, response) => {
+  return response.json({whatisthis: 'you posted'});
+});
+
+*/
+
+/*
 app.post('/contacts', (request, response) => {
-  return response.json({whatsinthebody: request.body});
+  return response.json({whatisthis: 'you posted'});
+});
+*/
+
+app.post('/contacts', (request, response) => {
+  return response.json({whatisthis: request.body});
 });
 
 app.get('/contacts', (request, response) => {
